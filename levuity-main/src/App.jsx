@@ -1,11 +1,15 @@
-import React from 'react'
+// src/App.jsx
+import React from "react";
+import NavBar from "./components/NavBar";
+import Hero from "./components/Hero";
 
-const App = () => {
+function App() {
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100 text-gray-800">
-      Levuity Main Branch
+    <div className="font-sans">
+      <NavBar />
+      <Hero />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
