@@ -1,5 +1,6 @@
 // src/components/NavBar.jsx
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   Home,
   MessageCircle,
@@ -13,6 +14,7 @@ import hero from "../assets/hero.png";
 const NavBar = () => {
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
+  const location = useLocation();
 
   const classOptions = [
     "12TH SCIENCE CBSE/ISC",
@@ -24,6 +26,9 @@ const NavBar = () => {
   const subjectOptions = [
     "PHYSICS (PHY)", "CHEMISTRY (CHEM)", "BIOLOGY (BIO)", "MATHEMATICS (MATHS)", "ALL"
   ];
+
+  // Helper function to check if a route is active
+  const isActiveRoute = (path) => location.pathname === path;
 
   return (
     <nav className="w-full flex justify-between items-center px-6 py-3 bg-white shadow-sm border-b-[3px] border-[#c9a8fe] sticky top-0 z-50 font-sans">
@@ -46,26 +51,49 @@ const NavBar = () => {
 
       {/* CENTER: Navigation Links */}
       <div className="flex items-center gap-8 text-sm font-medium text-black">
-        <div className="flex flex-col items-center text-blue-600 font-semibold">
+        <Link 
+          to="/" 
+          className={`flex flex-col items-center ${
+            isActiveRoute('/') ? 'text-blue-600 font-semibold' : ''
+          }`}
+        >
           <Home className="w-4 h-4 mb-1" />
           <span className="text-xs">Home</span>
-          <div className="w-6 h-1 bg-blue-600 rounded-full mt-1" />
-        </div>
+          {isActiveRoute('/') && <div className="w-6 h-1 bg-blue-600 rounded-full mt-1" />}
+        </Link>
 
-        <div className="flex flex-col items-center">
+        <Link 
+          to="/revision" 
+          className={`flex flex-col items-center ${
+            isActiveRoute('/revision') ? 'text-blue-600 font-semibold' : ''
+          }`}
+        >
           <MessageCircle className="w-4 h-4 mb-1" />
           <span className="text-xs">Revision</span>
-        </div>
+          {isActiveRoute('/revision') && <div className="w-6 h-1 bg-blue-600 rounded-full mt-1" />}
+        </Link>
 
-        <div className="flex flex-col items-center">
+        <Link 
+          to="/discussion" 
+          className={`flex flex-col items-center ${
+            isActiveRoute('/discussion') ? 'text-blue-600 font-semibold' : ''
+          }`}
+        >
           <Share2 className="w-4 h-4 mb-1" />
           <span className="text-xs">Discussion</span>
-        </div>
+          {isActiveRoute('/discussion') && <div className="w-6 h-1 bg-blue-600 rounded-full mt-1" />}
+        </Link>
 
-        <div className="flex flex-col items-center">
+        <Link 
+          to="/resource-library" 
+          className={`flex flex-col items-center ${
+            isActiveRoute('/resource-library') ? 'text-blue-600 font-semibold' : ''
+          }`}
+        >
           <MessageSquareText className="w-4 h-4 mb-1" />
           <span className="text-xs">Resource Library</span>
-        </div>
+          {isActiveRoute('/resource-library') && <div className="w-6 h-1 bg-blue-600 rounded-full mt-1" />}
+        </Link>
       </div>
 
       {/* RIGHT: Search, Button, Profile */}
