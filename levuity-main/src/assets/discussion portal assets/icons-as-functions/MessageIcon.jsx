@@ -1,0 +1,9 @@
+// src/icons/MessageIcon.jsx
+const MessageIcon = ({ className = '', ...props }) => (
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...props}>
+    <path d="M7.79199 9.625H14.2087" stroke="#0062FF" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M6.41634 16.8942H10.083L14.1622 19.6076C14.7672 20.0109 15.583 19.58 15.583 18.8467V16.8942C18.333 16.8942 20.1663 15.0609 20.1663 12.3109V6.81087C20.1663 4.06087 18.333 2.22754 15.583 2.22754H6.41634C3.66634 2.22754 1.83301 4.06087 1.83301 6.81087V12.3109C1.83301 15.0609 3.66634 16.8942 6.41634 16.8942Z" stroke="#0062FF" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export default MessageIcon;
