@@ -22,7 +22,7 @@ export default function AnswerDropdown() {
     if (isOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       const spaceBelow = window.innerHeight - rect.bottom;
-      const dropdownHeight = OPTIONS.length * 40; // approx height in px
+      const dropdownHeight = OPTIONS.length * 40; 
       setOpenUp(spaceBelow < dropdownHeight);
     }
   }, [isOpen]);
