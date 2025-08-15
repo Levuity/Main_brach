@@ -15,6 +15,7 @@ const Discussion = () => {
   const messagesEndRef = useRef(null);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
+  // const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     // Auto-scroll to bottom when messages change
@@ -46,16 +47,33 @@ const Discussion = () => {
   const clearbuttondev = (e) => {
     setMessages([])
   }
+
+
+  //  useEffect(() => {
+  //   function handleClickOutside(event) {
+  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  //       setIsOpen(false);
+  //     }
+  //   }
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleClickOutside);
+  // }, []);
+
+
+
+  // const handleclickdropdown= (e)=> {
+  //   setIsOpen(true)
+  // }
   return (
     <>
       {/* a temproary clear button */}
       <button className='absolute rounded-full px-3 bg-red-500 hover:bg-red-300' onClick={clearbuttondev}> clear</button>
 
       {/* Chat messages area */}
-      <div className="w-full max-w-[70rem] border-2 mx-auto px-2 sm:px-4 mb-[14rem] overflow-y-auto max-h-[calc(100vh-15rem)]">
+      <div className="w-full max-w-[70rem]  mx-auto px-2 sm:px-4 mb-[14rem] overflow-y-auto max-h-[calc(100vh-15rem)]">
         {messages.map((msg) => (
           <div key={msg.id} className="w-full flex justify-end py-2">
-            <div className="bg-[#E0F2FE] border border-[#BAE6FD] px-4 py-2 rounded-md max-w-[90%] text-sm sm:text-base shadow-sm">
+            <div className="bg-[#fdfdfd]  px-4 py-2 rounded-md max-w-[90%] text-sm sm:text-base shadow-sm">
               <div className="flex items-center gap-2 mb-1 justify-end">
                 <span className="text-[#0369A1] font-semibold text-sm">
                   {msg.sender === 'user' ? 'You' : msg.sender}
@@ -111,7 +129,8 @@ const Discussion = () => {
               type="text"
               placeholder="Type your message..."
               className="flex-grow h-full px-2 sm:px-4 bg-transparent focus:outline-none text-sm sm:text-base"
-              id="usermessage"
+             
+              autoComplete='off'
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}

@@ -27,6 +27,20 @@ export default function AnswerDropdown() {
     }
   }, [isOpen]);
 
+  // Close when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (buttonRef.current && !buttonRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="relative inline-block text-left" ref={buttonRef}>
       <button
