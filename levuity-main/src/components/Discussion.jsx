@@ -56,7 +56,7 @@ const Discussion = () => {
       <button className='absolute rounded-full px-3 bg-red-500 hover:bg-red-300' onClick={clearbuttondev}> clear</button>
 
       {/* Chat messages area */}
-      <div className="w-full h-screen max-w-[70rem]  mx-auto px-2 sm:px-4 mb-[14rem] overflow-y-auto flex justify-end flex-col border border-black">
+      <div className="w-full h-screen max-w-[70rem]  mx-auto px-2 sm:px-4 mb-[14rem] overflow-y-auto flex justify-end flex-col ">
         {messages.map((msg) => (
           <div key={msg.id} className="w-full flex justify-end py-2 ">
             <div className="bg-[#fdfdfd]  px-4 py-2 rounded-md w-full  flex-col text-sm sm:text-base ">
@@ -83,10 +83,10 @@ const Discussion = () => {
 
       {/* Chat Input UI */}
       <div className="flex w-full justify-center fixed bottom-0 px-2 sm:px-4 bg-white  h-fit">
-        <div className="w-full max-w-[70rem]  shrink-0 flex justify-end flex-col pb-2 border border-black h-fit">
+        <div className="w-full max-w-[70rem]  shrink-0 flex justify-end flex-col pb-2  h-fit">
 
           {/* Top section */}
-          <div className="w-full h-10 sm:h-12 shrink-0 rounded-t-md bg-[#F1F6FE] flex flex-row justify-between px-2 sm:px-4 border border-black">
+          <div className="w-full h-10 sm:h-12 shrink-0 rounded-t-md bg-[#F1F6FE] flex flex-row justify-between px-2 sm:px-4 ">
             <div className="flex items-center scale-75 sm:scale-100">
               <PageIcon className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
