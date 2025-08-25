@@ -49,42 +49,31 @@ const Discussion = () => {
   }
 
 
-  //  useEffect(() => {
-  //   function handleClickOutside(event) {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setIsOpen(false);
-  //     }
-  //   }
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
 
-
-
-  // const handleclickdropdown= (e)=> {
-  //   setIsOpen(true)
-  // }
   return (
     <>
       {/* a temproary clear button */}
       <button className='absolute rounded-full px-3 bg-red-500 hover:bg-red-300' onClick={clearbuttondev}> clear</button>
 
       {/* Chat messages area */}
-      <div className="w-full max-w-[70rem]  mx-auto px-2 sm:px-4 mb-[14rem] overflow-y-auto max-h-[calc(100vh-15rem)]">
+      <div className="w-full h-screen max-w-[70rem]  mx-auto px-2 sm:px-4 mb-[14rem] overflow-y-auto flex justify-end flex-col border border-black">
         {messages.map((msg) => (
-          <div key={msg.id} className="w-full flex justify-end py-2">
-            <div className="bg-[#fdfdfd]  px-4 py-2 rounded-md max-w-[90%] text-sm sm:text-base shadow-sm">
-              <div className="flex items-center gap-2 mb-1 justify-end">
-                <span className="text-[#0369A1] font-semibold text-sm">
-                  {msg.sender === 'user' ? 'You' : msg.sender}
-                </span>
-                {msg.sender === 'user' && (
-                  <span className="bg-blue-100 text-blue-600 text-xs font-medium px-2 py-0.5 rounded-full">
-                    Most Interactive
+          <div key={msg.id} className="w-full flex justify-end py-2 ">
+            <div className="bg-[#fdfdfd]  px-4 py-2 rounded-md w-full  flex-col text-sm sm:text-base ">
+              <div className='flex justify-end flex-col  w-fit'>
+                <div className="flex items-center  gap-2 mb-1 justify-end ">
+                  <span className="text-[#0369A1] font-semibold text-sm">
+                    {msg.sender === 'user' ? 'You' : msg.sender}
                   </span>
-                )}
+                  {msg.sender === 'user' && (
+                    <span className="bg-blue-100 text-blue-600 text-xs font-medium px-2 py-0.5 rounded-full">
+                      Most Interactive
+                    </span>
+                  )}
+                </div>
+                <div className="text-[#0C4A6E] whitespace-pre-wrap text-right  flex justify-start">{msg.text}</div>
               </div>
-              <div className="text-[#0C4A6E] whitespace-pre-wrap text-right">{msg.text}</div>
+
             </div>
           </div>
         ))}
@@ -93,11 +82,11 @@ const Discussion = () => {
       </div>
 
       {/* Chat Input UI */}
-      <div className="flex w-full justify-center fixed bottom-0 px-2 sm:px-4 bg-white ">
-        <div className="w-full max-w-[70rem] h-auto min-h-[12.625rem] shrink-0 flex justify-end flex-col pb-2">
+      <div className="flex w-full justify-center fixed bottom-0 px-2 sm:px-4 bg-white  h-fit">
+        <div className="w-full max-w-[70rem]  shrink-0 flex justify-end flex-col pb-2 border border-black h-fit">
 
           {/* Top section */}
-          <div className="w-full h-10 sm:h-12 shrink-0 rounded-t-md bg-[#F1F6FE] flex flex-row justify-between px-2 sm:px-4">
+          <div className="w-full h-10 sm:h-12 shrink-0 rounded-t-md bg-[#F1F6FE] flex flex-row justify-between px-2 sm:px-4 border border-black">
             <div className="flex items-center scale-75 sm:scale-100">
               <PageIcon className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
@@ -105,8 +94,8 @@ const Discussion = () => {
 
             <div className="flex flex-row gap-2 sm:gap-3 w-fit items-center scale-75 sm:scale-100">
 
-            
-              <UploadButton/>
+
+              <UploadButton />
 
 
               <div className="hover:bg-gray-400 w-7 h-7 rounded-full border-2 border-blue-400 flex justify-center items-center">
@@ -122,14 +111,14 @@ const Discussion = () => {
 
           {/* Input area */}
           <div
-            className="w-full h-12 sm:h-14 shrink-0 border-0 focus-within:border-2 border-blue-400 rounded-2xl flex items-center justify-end pr-4 sm:pr-10 flex-row gap-2 sm:gap-3 px-2 sm:px-4"
+            className=" w-full h-12 sm:h-14 shrink-0 border-0 focus-within:border-2 border-blue-400 rounded-2xl flex items-center justify-end pr-4 sm:pr-10 flex-row gap-2 sm:gap-3 px-2 sm:px-4"
             name="Input"
           >
             <input
               type="text"
               placeholder="Type your message..."
               className="flex-grow h-full px-2 sm:px-4 bg-transparent focus:outline-none text-sm sm:text-base"
-             
+
               autoComplete='off'
               value={input}
               onChange={(e) => setInput(e.target.value)}
