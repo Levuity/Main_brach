@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "title": "Item1",
+    "bookmarked": true
+  },
+  {
+    "id": 2,
+    "title": "Item2",
+    "bookmarked": false
+  },
+  {
+    "id": 3,
+    "title": "Item3",
+    "bookmarked": true
+  },
+  {
+    "id": 4,
+    "title": "Item4",
+    "bookmarked": false
+  },
+  {
+    "id": 5,
+    "title": "Item5",
+    "bookmarked": false
+  }
+]

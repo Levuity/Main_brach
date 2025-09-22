@@ -45,7 +45,7 @@ export default function AnswerDropdown() {
     <div className="relative inline-block text-left" ref={buttonRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-28 sm:w-32 h-7 sm:h-8 px-3 border border-black bg-blue-300 rounded-2xl flex items-center justify-between text-xs font-bold"
+        className="w-28 sm:w-32 h-7 sm:h-8 px-3  bg-blue-300 rounded-2xl flex items-center justify-between text-xs font-bold"
       >
         {selected}
         <svg
