@@ -33,8 +33,8 @@ Before you start, ensure you have:
 Clone the repository:
 
 ```bash
-git clone <your-repo-url>
-cd levuity
+git clone https://github.com/Levuity/Main_brach.git
+cd <either frontend or backend>
 ````
 
 Install dependencies for both frontend and backend:
