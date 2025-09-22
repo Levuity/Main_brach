@@ -1,4 +1,4 @@
-````markdown
+
 # Levuity Project
 
 > **Note:** This project is currently in **development mode**.
@@ -108,7 +108,7 @@ levuity/
 └─ README.md
 ```
 
----
+
 
 ## Tips for Development
 
