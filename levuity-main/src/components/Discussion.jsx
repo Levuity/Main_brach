@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import axios from 'axios';
 
 import Ellipse5Icon from '../assets/discussion-portal-assets/icons-as-functions/Ellipse5Icon';
 import EmojiHappyIcon from '../assets/discussion-portal-assets/icons-as-functions/EmojiHappyIcon';
@@ -15,25 +16,72 @@ const Discussion = () => {
   const messagesEndRef = useRef(null);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
   // const [isOpen, setIsOpen] = useState(false);
 
+  // Backend API base URL
+  const API_BASE_URL = 'http://localhost:3000'; // Backend server port backend runs on different port
+
+  // Fetch messages from backend on component mount
   useEffect(() => {
-    // Auto-scroll to bottom when messages change
+    fetchMessages();
+  }, []);
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    console.log('Messages updated:', messages);
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleSendMessage = () => {
+  const fetchMessages = async () => {
+    try {
+      setLoading(true);
+      console.log('Fetching messages from:', `${API_BASE_URL}/discussion/messages`);
+      const response = await axios.get(`${API_BASE_URL}/discussion/messages`);
+      console.log('Raw response:', response.data);
+      const backendMessages = response.data.map(msg => ({
+        id: msg._id,
+        text: msg.message,
+        sender: msg.username,
+        createdAt: msg.timestamp
+      }));
+      console.log('Mapped messages:', backendMessages);
+      setMessages(backendMessages);
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+      console.error('Error details:', error.response?.data || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSendMessage = async () => {
     const trimmed = input.trim();
-    if (trimmed === '') return;
+    if (trimmed === '' || loading) return;
 
-    const newMessage = {
-      id: Date.now(),
-      text: trimmed,
-      sender: 'user',
-    };
+    try {
+      setLoading(true);
+      const response = await axios.post(`${API_BASE_URL}/discussion/messages`, {
+        message: trimmed,
+        username: 'user' // You can make this dynamic later with actual user authentication
+      });
 
-    setMessages((prev) => [...prev, newMessage]);
-    setInput('');
+      // Add the new message to the local state
+      const newMessage = {
+        id: response.data._id,
+        text: response.data.message,
+        sender: response.data.username,
+        createdAt: response.data.timestamp
+      };
+
+      setMessages((prev) => [...prev, newMessage]);
+      setInput('');
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -44,8 +92,17 @@ const Discussion = () => {
   };
 
 
-  const clearbuttondev = (e) => {
-    setMessages([])
+  const clearbuttondev = async (e) => {
+    try {
+      setLoading(true);
+      await axios.delete(`${API_BASE_URL}/discussion/messages`);
+      setMessages([]);
+    } catch (error) {
+      console.error('Error clearing messages:', error);
+      alert('Failed to clear messages. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   }
 
 
@@ -57,6 +114,11 @@ const Discussion = () => {
 
       {/* Chat messages area */}
       <div className="w-full h-screen max-w-[70rem]  mx-auto px-2 sm:px-4 mb-[14rem] overflow-y-auto flex justify-end flex-col ">
+        {loading && messages.length === 0 && (
+          <div className="flex justify-center items-center py-4">
+            <div className="text-gray-500">Loading messages...</div>
+          </div>
+        )}
         {messages.map((msg) => (
           <div key={msg.id} className="w-full flex justify-end py-2 ">
             <div className="bg-[#fdfdfd]  px-4 py-2 rounded-md w-full  flex-col text-sm sm:text-base ">
@@ -116,16 +178,16 @@ const Discussion = () => {
           >
             <input
               type="text"
-              placeholder="Type your message..."
+              placeholder={loading ? "Sending..." : "Type your message..."}
               className="flex-grow h-full px-2 sm:px-4 bg-transparent focus:outline-none text-sm sm:text-base"
-
               autoComplete='off'
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
+              disabled={loading}
             />
             <div
-              className="px-2 py-1 sm:pl-2 cursor-pointer hover:bg-blue-500 flex justify-center rounded-full"
+              className={`px-2 py-1 sm:pl-2 cursor-pointer hover:bg-blue-500 flex justify-center rounded-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleSendMessage}
             >
               <SendIcon className="w-4 h-4 sm:w-5 sm:h-5" />
